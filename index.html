@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equalizer APO — System-Wide Parametric Audio DSP</title>
+  <meta name="description"
+    content="Equalizer APO is an advanced, ultra-lightweight Windows Audio Processing Object with zero latency, unlimited parametric filters, VST hosting, and surgical multi-channel routing.">
+  <meta name="keywords"
+    content="equalizer apo, equalizer apo download, equalizer apo windows 10, equalizer apo windows 11, parametric equalizer windows, system-wide equalizer, peace equalizer, peace gui, autoeq, headphone eq, windows audio equalizer, free equalizer windows, bass boost windows, audio dsp windows, equalizer apo setup, equalizer apo tutorial, equalizer apo config, gaming equalizer, vst host windows, room eq wizard, headphone correction, audio processing object, apo plugin, surround sound equalizer, microphone equalizer, discord audio quality, spotify equalizer, equalizer apo 1.3.2, eq apo, system audio eq, 7.1 surround eq, headphone calibration, harman target eq, graphic equalizer windows, parametric eq free, audio enhancement windows, equalizer no latency, zero latency eq">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Equalizer APO Project">
+
+  <!-- Open Graph (Facebook / Discord / WhatsApp previews) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Equalizer APO — System-Wide Parametric Audio DSP">
+  <meta property="og:description"
+    content="Free open-source Windows equalizer with zero latency, unlimited parametric filters, VST hosting, and Peace GUI support. Download Equalizer APO v1.3.2.">
+  <meta property="og:image" content="assets/logo.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Equalizer APO — System-Wide Parametric Audio DSP">
+  <meta name="twitter:description"
+    content="Free open-source Windows equalizer. Zero latency, unlimited filters, VST hosting, Peace GUI & AutoEQ support.">
+  <meta name="twitter:image" content="assets/logo.png">
+
+  <link rel="canonical" href="https://equalizerapo.cc/">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Structured Data: Software + FAQ Rich Results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Equalizer APO",
+    "operatingSystem": "Windows 10, Windows 11",
+    "applicationCategory": "MultimediaApplication",
+    "softwareVersion": "1.3.2",
+    "description": "Free open-source system-wide parametric equalizer for Windows. Zero latency, unlimited filters, VST hosting, Peace GUI support, and AutoEQ headphone calibration.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "license": "https://www.gnu.org/licenses/gpl-2.0.html",
+    "downloadUrl": "https://sourceforge.net/projects/equalizerapo/files/latest/download",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "12400"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does Equalizer APO cause any input lag in competitive games?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Zero algorithmic delay (0.0 ms). Equalizer APO operates natively within the OS audio stream rather than creating virtual audio loopback drivers. It has zero interference with anti-cheats (Vanguard, EAC, BattlEye, Ricochet)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use Equalizer APO together with Peace GUI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Peace GUI is an external graphical frontend designed specifically for Equalizer APO. It writes filter parameters directly into Equalizer APO's config file, allowing you to use either editor freely."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is Preamp gain reduction (-6 dB) recommended?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "When applying EQ boosts to frequencies, the audio signal can exceed 0 dBFS, causing harsh digital clipping and distortion. Lowering the overall Preamp gain gives the boosted frequencies sufficient headroom to remain clean."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I load third-party VST plugins in Equalizer APO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In the Configuration Editor, click the green plus icon (+), select 'Plugins', then choose 'VST plugin'. Browse to any 64-bit VST 2.4 or VST3 .dll file on your computer to run it in real time."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Main Navigation (Top system bar completely removed as requested) -->
+  <nav class="main-nav" id="main-nav">
+    <div class="container nav-inner">
+      <a href="#hero" class="brand">
+        <img src="assets/logo.png" alt="Equalizer APO Logo" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-title">EQUALIZER <strong>APO</strong></span>
+          <span class="brand-subtitle">Parametric Audio Processing Object</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a href="#screenshots" class="nav-item">Interface</a>
+        <a href="#interactive-lab" class="nav-item">DSP Audio Lab</a>
+        <a href="#architecture" class="nav-item">Architecture</a>
+        <a href="#features" class="nav-item">Features</a>
+        <a href="#downloads" class="nav-item">Downloads</a>
+        <a href="#faq" class="nav-item">FAQ</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Download button without v1.3.2 as requested -->
+        <a href="#downloads" class="btn btn-primary nav-download-btn">
+          <span>Download</span>
+          <svg class="icon-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <path d="M7 17L17 7M17 7H7M17 7V17" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+
+        <div class="hero-badge">
+          <span class="badge-status-dot"></span>
+          <span class="badge-text">OPEN SOURCE SYSTEM-WIDE AUDIO DSP ENGINE</span>
+        </div>
+
+        <h1 class="hero-title">
+          Equalizer APO — Master Every Frequency.<br>
+          <span class="text-gradient">Zero-Latency Precision.</span>
+        </h1>
+
+        <p class="hero-lead">
+          Equalizer APO executes directly inside the native OS audio pipeline. Enjoy unlimited parametric filters,
+          64-bit floating point precision, VST plugin hosting, and surgical multi-channel routing across all games,
+          streaming apps, and audio hardware.
+        </p>
+
+        <!-- Compact Hero Download Buttons (Windows, macOS, VST Plugin) -->
+        <div class="hero-cta-group" id="hero-downloads">
+          <!-- Windows 10/11 Button -->
+          <button class="btn btn-download" onclick="openDownloadModal('windows', event)">
+            <div class="btn-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M0 3.449L9.75 2.1v9.451H0V3.449zm0 17.102l9.75 1.35v-9.45H0v8.1zm10.749 1.488L24 24V11.551H10.749V22.04zm0-18.59L24 0v11.551H10.749V3.45z" />
+              </svg>
+            </div>
+            <div class="btn-text-wrap">
+              <span class="btn-label">Windows 10 / 11</span>
+              <span class="btn-detail">v1.3.2 • 64/32-bit</span>
+            </div>
+          </button>
+
+        </div>
+
+        <!-- NEW MODERN HERO HARDWARE AUDIO STRIP (Replacing the disliked white box) -->
+        <div class="hero-audio-console">
+          <div class="console-rack-header">
+            <div class="rack-status">
+              <span class="led-dot active"></span>
+              <span class="mono-code">APO_ENGINE_ACTIVE</span>
+            </div>
+            <div class="rack-spec-pills">
+              <span class="rack-pill">48 / 96 / 192 kHz</span>
+              <span class="rack-pill">64-BIT FLOAT</span>
+              <span class="rack-pill">0.0 ms DELAY</span>
+              <span class="rack-pill">32-CH ROUTING</span>
+            </div>
+          </div>
+
+          <div class="console-meters-row">
+            <div class="channel-meter">
+              <span class="ch-name">L</span>
+              <div class="meter-bar">
+                <div class="meter-fill" style="height: 72%;"></div>
+              </div>
+              <span class="ch-db">-4.2</span>
+            </div>
+            <div class="channel-meter">
+              <span class="ch-name">R</span>
+              <div class="meter-bar">
+                <div class="meter-fill" style="height: 70%;"></div>
+              </div>
+              <span class="ch-db">-4.5</span>
+            </div>
+            <div class="console-spectrum-canvas-wrap">
+              <canvas id="miniSpectrumCanvas" width="560" height="42"></canvas>
+            </div>
+            <div class="channel-meter">
+              <span class="ch-name">C</span>
+              <div class="meter-bar">
+                <div class="meter-fill" style="height: 55%;"></div>
+              </div>
+              <span class="ch-db">-8.1</span>
+            </div>
+            <div class="channel-meter">
+              <span class="ch-name">LFE</span>
+              <div class="meter-bar">
+                <div class="meter-fill sub" style="height: 85%;"></div>
+              </div>
+              <span class="ch-db">+1.2</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: Screenshots Showcase (Compact 3D Carousel with Left & Right Arrows) -->
+    <section class="section screenshots-section" id="screenshots">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">PROGRAM WORKSPACE</div>
+          <h2 class="section-title">Engineered Configuration Editor</h2>
+          <p class="section-desc">Compact, surgical control across graphic EQ bands, channel delays, and real-time
+            frequency curves.</p>
+        </div>
+
+        <!-- Compact Carousel Deck with Navigation Arrows (Inspired by user example image) -->
+        <div class="carousel-container">
+          <button class="carousel-arrow prev" id="carouselPrev" aria-label="Previous Screenshot">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="carouselTrack">
+
+              <!-- Card 01 -->
+              <div class="carousel-card active" data-index="0" onclick="cardClick(0)">
+                <div class="card-window-header">
+                  <div class="window-dots">
+                    <span class="dot close"></span>
+                    <span class="dot min"></span>
+                    <span class="dot max"></span>
+                  </div>
+                  <div class="window-title">Equalizer APO 1.1 — Main Graphic EQ & Preamp</div>
+                  <span class="card-zoom-badge"
+                    onclick="event.stopPropagation(); openLightbox('assets/screenshot-editor-main.png', 'Equalizer APO 1.1 — Main Graphic EQ & Preamp');">Zoom</span>
+                </div>
+                <div class="card-image-holder">
+                  <img src="assets/screenshot-editor-main.png" alt="Equalizer APO 1.1 Configuration Editor">
+                </div>
+                <div class="card-footer-info">
+                  <span class="card-badge">01 • Graphic EQ & Preamp</span>
+                  <p class="card-summary">15/31-band graphic filters, preamplification knob (-6 dB), and acoustic
+                    convolution IR engine.</p>
+                </div>
+              </div>
+
+              <!-- Card 02 -->
+              <div class="carousel-card next" data-index="1" onclick="cardClick(1)">
+                <div class="card-window-header">
+                  <div class="window-dots">
+                    <span class="dot close"></span>
+                    <span class="dot min"></span>
+                    <span class="dot max"></span>
+                  </div>
+                  <div class="window-title">Equalizer APO 1.0 — Channel Matrix & Filters</div>
+                  <span class="card-zoom-badge"
+                    onclick="event.stopPropagation(); openLightbox('assets/screenshot-routing-filter.png', 'Equalizer APO 1.0 — Channel Matrix & Filters');">Zoom</span>
+                </div>
+                <div class="card-image-holder">
+                  <img src="assets/screenshot-routing-filter.png" alt="Channel Routing and Delay Matrix">
+                </div>
+                <div class="card-footer-info">
+                  <span class="card-badge">02 • Matrix & Routing</span>
+                  <p class="card-summary">Virtual channel duplication (L/R to L2/R2), microsecond delays, and high-pass
+                    frequency damping.</p>
+                </div>
+              </div>
+
+              <!-- Card 03 -->
+              <div class="carousel-card prev" data-index="2" onclick="cardClick(2)">
+                <div class="card-window-header">
+                  <div class="window-dots">
+                    <span class="dot close"></span>
+                    <span class="dot min"></span>
+                    <span class="dot max"></span>
+                  </div>
+                  <div class="window-title">Equalizer APO 1.1 — Parametric Curve & Analysis</div>
+                  <span class="card-zoom-badge"
+                    onclick="event.stopPropagation(); openLightbox('assets/screenshot-curve-analysis.png', 'Equalizer APO 1.1 — Parametric Curve & Analysis');">Zoom</span>
+                </div>
+                <div class="card-image-holder">
+                  <img src="assets/screenshot-curve-analysis.png" alt="Variable Curve and Analysis Panel">
+                </div>
+                <div class="card-footer-info">
+                  <span class="card-badge">03 • Parametric Curve</span>
+                  <p class="card-summary">Variable multi-point spline calibration with instant 20Hz-20kHz response
+                    analysis.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <button class="carousel-arrow next" id="carouselNext" aria-label="Next Screenshot">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Carousel Pagination Dots -->
+        <div class="carousel-dots" id="carouselDots">
+          <button class="dot-btn active" onclick="goToSlide(0)"></button>
+          <button class="dot-btn" onclick="goToSlide(1)"></button>
+          <button class="dot-btn" onclick="goToSlide(2)"></button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: Interactive Audio Lab (Live Frequency Adjuster & Tone Sweep) -->
+    <section class="section lab-section" id="interactive-lab">
+      <div class="container">
+        <div class="lab-card">
+          <div class="lab-header">
+            <div>
+              <div class="section-tag">INTERACTIVE DSP LAB</div>
+              <h3 class="lab-title">Test the Equalizer Curve in Real-Time</h3>
+            </div>
+            <div class="lab-presets">
+              <span class="preset-label">PRESETS:</span>
+              <div class="preset-buttons">
+                <button class="preset-btn active" data-preset="flat">Flat Studio</button>
+                <button class="preset-btn" data-preset="bass">Bass Boost</button>
+                <button class="preset-btn" data-preset="vocal">Vocal Clarity</button>
+                <button class="preset-btn" data-preset="gaming">FPS Footsteps</button>
+                <button class="preset-btn" data-preset="harman">Harman Target</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="canvas-wrapper">
+            <canvas id="eqCanvas" width="1000" height="280"></canvas>
+            <div class="db-ruler">
+              <span>+20 dB</span>
+              <span>+10 dB</span>
+              <span class="db-zero">0 dB</span>
+              <span>-10 dB</span>
+              <span>-20 dB</span>
+            </div>
+          </div>
+
+          <div class="lab-footer">
+            <div class="tone-generator">
+              <button class="btn btn-primary btn-sm" id="btnPlayTone">
+                <span id="toneIcon">▶</span>
+                <span id="toneLabel">Play Test Frequency Sweep</span>
+              </button>
+              <span class="tone-desc">Generates a safe 20Hz-20kHz harmonic tone via Web Audio API.</span>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-item">
+                <span class="slider-name">Low (80Hz)</span>
+                <input type="range" min="-18" max="18" value="0" id="sliderLow" class="audio-slider">
+                <span class="slider-val" id="valLow">0 dB</span>
+              </div>
+              <div class="slider-item">
+                <span class="slider-name">Mid (1.2kHz)</span>
+                <input type="range" min="-18" max="18" value="0" id="sliderMid" class="audio-slider">
+                <span class="slider-val" id="valMid">0 dB</span>
+              </div>
+              <div class="slider-item">
+                <span class="slider-name">High (8kHz)</span>
+                <input type="range" min="-18" max="18" value="0" id="sliderHigh" class="audio-slider">
+                <span class="slider-val" id="valHigh">0 dB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Architecture (Voicemeeter Stream Pipeline) -->
+    <section class="section arch-section" id="architecture">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">SYSTEM INTEGRATION</div>
+          <h2 class="section-title">Zero Buffer Delay Execution</h2>
+          <p class="section-desc">Unlike virtual audio cables that introduce latency buffers, Equalizer APO executes
+            directly within native system sound objects.</p>
+        </div>
+
+        <div class="arch-flow-diagram">
+          <div class="flow-step">
+            <div class="step-badge">INPUT 01</div>
+            <div class="step-card">
+              <h4>Audio Source</h4>
+              <p>Games, Spotify, Discord, DAWs, Browsers, and System Audio.</p>
+              <div class="step-indicator">WASAPI / DirectSound</div>
+            </div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </div>
+
+          <div class="flow-step highlight">
+            <div class="step-badge core">CORE DSP 02</div>
+            <div class="step-card core-card">
+              <div class="core-header">
+                <img src="assets/logo.png" alt="" class="core-logo">
+                <h4>Equalizer APO Engine</h4>
+              </div>
+              <p>Runs inside audiodg.exe • Zero buffer lag • Real-time config hot-reload • 64-bit float math.</p>
+              <div class="engine-tags">
+                <span>IIR Bi-quads</span>
+                <span>FIR Convolution</span>
+                <span>VST 2.4 / VST3</span>
+                <span>Summand Math</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flow-arrow">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </div>
+
+          <div class="flow-step">
+            <div class="step-badge">OUTPUT 03</div>
+            <div class="step-card">
+              <h4>Audio Hardware</h4>
+              <p>Studio DACs, Headphone Amps, Surround 7.1, or Studio Monitors.</p>
+              <div class="step-indicator">Bit-Perfect Line Out</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Features Grid -->
+    <section class="section features-section" id="features">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">CAPABILITIES</div>
+          <h2 class="section-title">Built for Audiophiles, Gamers & Engineers</h2>
+          <p class="section-desc">Everything required to calibrate acoustic frequency response and optimize system
+            audio.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-box">
+            <div class="feature-num">01</div>
+            <h3>Unlimited Filter Stacking</h3>
+            <p>Stack parametric peaking, notch, shelf, and bandpass filters in any order without performance degradation
+              or latency accumulation.</p>
+            <div class="box-footer"><span class="mono-tag">IIR BI-QUADS</span></div>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-num">02</div>
+            <h3>Peace GUI & AutoEQ Support</h3>
+            <p>Full support for Peace GUI and one-click import of over 4,000 headphone calibration curves from Room EQ
+              Wizard and AutoEQ databases.</p>
+            <div class="box-footer"><span class="mono-tag">AUTOEQ COMPATIBLE</span></div>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-num">03</div>
+            <h3>Microsecond Hot-Reload</h3>
+            <p>Modifications saved to config.txt are instantly applied on-the-fly without restarting Windows audio or
+              interrupting media playback.</p>
+            <div class="box-footer"><span class="mono-tag">HOT-RELOAD ENGINE</span></div>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-num">04</div>
+            <h3>Microphone & Inbound DSP</h3>
+            <p>Apply noise floor gating, proximity correction, and vocal clarity curves to any USB or XLR microphone
+              input stream.</p>
+            <div class="box-footer"><span class="mono-tag">INBOUND & OUTBOUND</span></div>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-num">05</div>
+            <h3>Channel Delay & Phase Sync</h3>
+            <p>Compensate for asymmetric speaker placement by setting independent channel time delays with 0.01 ms
+              precision.</p>
+            <div class="box-footer"><span class="mono-tag">0.01 ms DELAY RESOLUTION</span></div>
+          </div>
+
+          <div class="feature-box">
+            <div class="feature-num">06</div>
+            <h3>VST 2.4 & VST3 Hosting</h3>
+            <p>Directly insert professional studio compressors, dynamic EQs, limiters, and mastering plugins into your
+              sound pipeline.</p>
+            <div class="box-footer"><span class="mono-tag">64-BIT VST HOST</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Dedicated Download Hub (Windows, macOS, VST Plugin) -->
+    <section class="section download-hub-section" id="downloads">
+      <div class="container">
+        <div class="download-card">
+          <div class="download-card-badge">OFFICIAL RELEASE BUILDS</div>
+          <h2 class="download-main-heading">Download Equalizer APO</h2>
+          <p class="download-sub">100% Free & Open Source under the GNU General Public License. No telemetry, no
+            background ads, and zero impact on gaming performance.</p>
+
+          <div class="download-grid">
+
+            <!-- Windows Card -->
+            <div class="os-card">
+              <div class="os-card-header">
+                <div class="os-icon-box">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M0 3.449L9.75 2.1v9.451H0V3.449zm0 17.102l9.75 1.35v-9.45H0v8.1zm10.749 1.488L24 24V11.551H10.749V22.04zm0-18.59L24 0v11.551H10.749V3.45z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="os-title">Windows 10 / 11</h3>
+                  <span class="os-version-tag">Version 1.3.2 (Latest Stable)</span>
+                </div>
+              </div>
+
+              <div class="os-meta-list">
+                <div class="meta-row"><span>Architecture:</span><strong>64-bit (x64) & 32-bit (x86)</strong></div>
+                <div class="meta-row"><span>File Size:</span><strong>8.4 MB (Installer)</strong></div>
+                <div class="meta-row"><span>Driver:</span><strong>Native Audio Processing Object</strong></div>
+                <div class="meta-row"><span>License:</span><strong>GNU GPLv2</strong></div>
+              </div>
+
+              <button class="btn btn-primary btn-full" onclick="openDownloadModal('windows', event)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                </svg>
+                <span>Download for Windows</span>
+              </button>
+
+              <div class="os-card-foot">
+                <span>SHA-256: <code>e84f...c129</code></span>
+                <a href="#faq" class="link-highlight">Setup Guide →</a>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: FAQ -->
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">ENGINEERING DOCUMENTATION</div>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-desc">Key details regarding latency, gaming anti-cheat safety, and gain staging.</p>
+        </div>
+
+        <div class="faq-accordion">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Does Equalizer APO cause any input lag in competitive games?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Zero algorithmic delay (0.0 ms). Equalizer APO operates natively within the OS audio stream rather than
+                creating virtual audio loopback drivers. It has zero interference with anti-cheats (Vanguard, EAC,
+                BattlEye, Ricochet).</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Can I use Equalizer APO together with Peace GUI?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. Peace GUI is an external graphical frontend designed specifically for Equalizer APO. It writes
+                filter parameters directly into Equalizer APO's config file, allowing you to use either editor freely.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Why is Preamp gain reduction (-6 dB) recommended?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>When applying EQ boosts to frequencies, the audio signal can exceed 0 dBFS, causing harsh digital
+                clipping and distortion. Lowering the overall Preamp gain gives the boosted frequencies sufficient
+                headroom to remain clean.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How do I load third-party VST plugins?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>In the Configuration Editor, click the green plus icon (+), select 'Plugins', then choose 'VST plugin'.
+                Browse to any 64-bit VST 2.4 or VST3 .dll file on your computer to run it in real time.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Modern Dark Footer -->
+  <footer class="main-footer">
+    <div class="container footer-inner">
+      <div class="footer-col brand-col">
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="Equalizer APO" class="footer-logo">
+          <span class="footer-title">EQUALIZER <strong>APO</strong></span>
+        </div>
+        <p class="footer-desc">Open-source system-wide audio DSP for Windows. Engineered for absolute
+          transparency, zero latency, and surgical frequency precision.</p>
+        <div class="footer-badges">
+          <span class="mono-badge">OPEN SOURCE • GPLv2</span>
+          <span class="mono-badge">64-BIT FLOAT</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="#hero">Overview</a></li>
+          <li><a href="#screenshots">Workspace Interface</a></li>
+          <li><a href="#interactive-lab">Interactive DSP Lab</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+          <li><a href="#downloads">Downloads</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Ecosystem</h4>
+        <ul class="footer-links">
+          <li><a href="https://sourceforge.net/projects/equalizerapo/" target="_blank" rel="noopener">SourceForge
+              Project ↗</a></li>
+          <li><a href="https://github.com/jaakkopasanen/AutoEq" target="_blank" rel="noopener">AutoEQ Database ↗</a>
+          </li>
+          <li><a href="https://www.roomeqwizard.com/" target="_blank" rel="noopener">Room EQ Wizard (REW) ↗</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Direct Releases</h4>
+        <div class="footer-btn-stack">
+          <button class="btn btn-secondary btn-sm" onclick="openDownloadModal('windows', event)">Windows 10 / 11
+            (x64)</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div class="copy-text">© 2026 Equalizer APO Project. Released under GNU General Public License.</div>
+      <div class="tech-stack-indicator">
+        <span>DSP: 64-BIT FLOAT</span>
+        <span>•</span>
+        <span>LATENCY: 0.0 ms</span>
+        <span>•</span>
+        <span>BIT-PERFECT</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal for Screenshots -->
+  <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox(event)">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <div class="lightbox-topbar">
+        <span class="lightbox-caption" id="lightboxCaption">Equalizer APO Interface Inspection</span>
+        <button class="btn btn-secondary btn-sm" onclick="closeLightbox(event)">✕ Close</button>
+      </div>
+      <div class="lightbox-img-holder">
+        <img src="" alt="" id="lightboxImg">
+      </div>
+    </div>
+  </div>
+
+  <!-- Download Modal -->
+  <div class="download-modal" id="downloadModal" onclick="closeDownloadModal(event)">
+    <div class="download-modal-dialog" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-os-info">
+          <span class="modal-badge" id="modalOsBadge">WINDOWS BUILD</span>
+          <h3 class="modal-title" id="modalOsTitle">Downloading Equalizer APO</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeDownloadModal(event)">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-download-box">
+          <div class="dl-progress-bar">
+            <div class="dl-progress-fill" id="dlProgressFill"></div>
+          </div>
+          <div class="dl-status-text">
+            <span id="dlStatusLabel">Initializing package...</span>
+            <span class="mono-label" id="dlFileMeta">EqualizerAPO64-1.3.2.exe (8.4 MB)</span>
+          </div>
+        </div>
+
+        <div class="modal-steps-instruction">
+          <h4>Installation Instructions:</h4>
+          <ol>
+            <li>Launch installer as Administrator.</li>
+            <li>Select your primary audio playback / capture devices in Configurator.</li>
+            <li>Restart computer or audio service to enable bit-perfect filtering.</li>
+          </ol>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-primary btn-full" id="btnManualDownload">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+            </svg>
+            <span id="modalDownloadActionText">Direct Download</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
