@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://equalizerapo.cc/</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://equalizerapo.cc/assets/logo.png</image:loc>
+      <image:title>Equalizer APO Logo — System-Wide Parametric Audio Equalizer</image:title>
+      <image:caption>Official logo for Equalizer APO open-source Windows audio DSP</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://equalizerapo.cc/assets/screenshot-editor-main.png</image:loc>
+      <image:title>Equalizer APO Configuration Editor — Main Graphic EQ and Preamp</image:title>
+      <image:caption>Equalizer APO main graphical interface with 15/31-band graphic filters and preamp control</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://equalizerapo.cc/assets/screenshot-routing-filter.png</image:loc>
+      <image:title>Equalizer APO Channel Matrix and Audio Routing Filter</image:title>
+      <image:caption>Multi-channel routing, delay compensation, and high-pass frequency damping matrix</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://equalizerapo.cc/assets/screenshot-curve-analysis.png</image:loc>
+      <image:title>Equalizer APO Parametric Curve and Real-Time Audio Analysis</image:title>
+      <image:caption>Real-time 20Hz-20kHz acoustic frequency response spline calibration in Equalizer APO</image:caption>
+    </image:image>
   </url>
 </urlset>

@@ -1,0 +1,16 @@
+{
+  "name": "Equalizer APO — Parametric Windows Equalizer",
+  "short_name": "Equalizer APO",
+  "description": "Free open-source system-wide parametric equalizer with zero latency, Peace GUI integration, and VST hosting for Windows.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#C8A227",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "600x600",
+      "type": "image/png"
+    }
+  ]
+}
